@@ -9,6 +9,7 @@ INDEX = ROOT / "index.html"
 STYLESHEET = ROOT / "style.css"
 README = ROOT / "README.md"
 NOJEKYLL = ROOT / ".nojekyll"
+GITIGNORE = ROOT / ".gitignore"
 
 
 class SiteParser(HTMLParser):
@@ -157,6 +158,12 @@ class TempoEditSiteTests(unittest.TestCase):
         )
         self.assertIsNotNone(narrow_rule)
         self.assertIn("19vw", narrow_rule.group("body"))
+
+    def test_generated_python_cache_is_ignored(self):
+        self.assertTrue(GITIGNORE.is_file(), ".gitignore must exist")
+        ignored_patterns = GITIGNORE.read_text(encoding="utf-8").splitlines()
+        self.assertIn("__pycache__/", ignored_patterns)
+        self.assertIn("*.pyc", ignored_patterns)
 
 
 if __name__ == "__main__":
