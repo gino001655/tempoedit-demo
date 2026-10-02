@@ -1,10 +1,14 @@
 from html.parser import HTMLParser
 from pathlib import Path
+import re
 import unittest
 
 
 ROOT = Path(__file__).resolve().parents[1]
 INDEX = ROOT / "index.html"
+STYLESHEET = ROOT / "style.css"
+README = ROOT / "README.md"
+NOJEKYLL = ROOT / ".nojekyll"
 
 
 class SiteParser(HTMLParser):
@@ -114,6 +118,45 @@ class TempoEditSiteTests(unittest.TestCase):
             canonical,
             ["https://gino001655.github.io/tempoedit-demo/"],
         )
+
+    def test_stylesheet_supports_responsive_and_accessible_rendering(self):
+        self.assertTrue(STYLESHEET.is_file(), "style.css must exist")
+        css = STYLESHEET.read_text(encoding="utf-8")
+        for required_rule in (
+            "box-sizing: border-box",
+            "overflow-x: hidden",
+            ":focus-visible",
+            "@media (max-width: 720px)",
+            "@media (prefers-reduced-motion: reduce)",
+            "system-ui",
+        ):
+            self.assertIn(required_rule, css)
+
+    def test_repository_is_ready_for_direct_github_pages_deployment(self):
+        self.assertTrue(NOJEKYLL.is_file(), ".nojekyll must exist")
+        self.assertEqual(NOJEKYLL.read_text(encoding="utf-8"), "")
+        self.assertTrue(README.is_file(), "README.md must exist")
+        readme = README.read_text(encoding="utf-8")
+        self.assertIn("python3 -m http.server 8000", readme)
+        self.assertIn("https://gino001655.github.io/tempoedit-demo/", readme)
+        self.assertIn("Settings → Pages", readme)
+        self.assertIn("main", readme)
+        self.assertIn("/(root)", readme)
+
+    def test_project_name_stays_on_one_line_at_supported_widths(self):
+        self.assertTrue(STYLESHEET.is_file(), "style.css must exist")
+        css = STYLESHEET.read_text(encoding="utf-8")
+        desktop_h1 = re.search(r"h1\s*\{(?P<body>.*?)\}", css, re.DOTALL)
+        self.assertIsNotNone(desktop_h1)
+        self.assertIn("white-space: nowrap", desktop_h1.group("body"))
+        self.assertIn("7.2rem", desktop_h1.group("body"))
+        narrow_rule = re.search(
+            r"@media \(max-width: 720px\).*?h1\s*\{(?P<body>.*?)\}",
+            css,
+            re.DOTALL,
+        )
+        self.assertIsNotNone(narrow_rule)
+        self.assertIn("19vw", narrow_rule.group("body"))
 
 
 if __name__ == "__main__":
