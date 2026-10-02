@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#071b2b">
+    <meta
+      name="description"
+      content="TempoEdit explores training-free temporal audio editing with pretrained text-to-audio models."
+    >
+    <meta property="og:type" content="website">
+    <meta
+      property="og:title"
+      content="TempoEdit | Training-Free Temporal Audio Editing"
+    >
+    <meta
+      property="og:description"
+      content="TempoEdit explores training-free temporal audio editing with pretrained text-to-audio models."
+    >
+    <meta
+      property="og:url"
+      content="https://gino001655.github.io/tempoedit-demo/"
+    >
+    <meta name="twitter:card" content="summary">
+    <link
+      rel="canonical"
+      href="https://gino001655.github.io/tempoedit-demo/"
+    >
+    <link rel="stylesheet" href="style.css">
+    <title>TempoEdit | Training-Free Temporal Audio Editing</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <header class="site-header">
+      <a class="wordmark" href="#top" aria-label="TempoEdit home">
+        <span class="wordmark-mark" aria-hidden="true">TE</span>
+        <span>TempoEdit</span>
+      </a>
+      <span class="project-state"><span aria-hidden="true"></span>Ongoing work</span>
+    </header>
+
+    <main id="main-content">
+      <section class="hero" id="top" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow">Research project · 2026</p>
+          <h1 id="hero-title">TempoEdit</h1>
+          <p class="hero-title">
+            Training-Free Temporal Audio Editing Through Pretrained
+            Text-to-Audio Models
+          </p>
+          <p class="hero-summary">
+            Exploring how a frozen generative audio model can reposition and
+            reshape sound events in time—without task-specific training or an
+            isolated reference recording.
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#overview">Explore the project</a>
+            <a class="button button-secondary" href="#status">View research status</a>
+          </div>
+          <div class="author-block">
+            <p><strong>Chih-Yao Chen</strong></p>
+            <p>Department of Electrical Engineering</p>
+            <p>National Taiwan University</p>
+          </div>
+        </div>
+
+        <div class="signal-card" aria-hidden="true">
+          <div class="signal-card-head">
+            <span>Temporal canvas</span>
+            <span>00:08</span>
+          </div>
+          <div class="waveform">
+            <span style="--level: 22%"></span><span style="--level: 38%"></span>
+            <span style="--level: 54%"></span><span style="--level: 32%"></span>
+            <span style="--level: 68%"></span><span style="--level: 86%"></span>
+            <span style="--level: 58%"></span><span style="--level: 42%"></span>
+            <span style="--level: 72%"></span><span style="--level: 92%"></span>
+            <span style="--level: 62%"></span><span style="--level: 48%"></span>
+            <span style="--level: 28%"></span><span style="--level: 44%"></span>
+            <span style="--level: 70%"></span><span style="--level: 52%"></span>
+            <span style="--level: 34%"></span><span style="--level: 64%"></span>
+            <span style="--level: 82%"></span><span style="--level: 46%"></span>
+            <span style="--level: 24%"></span><span style="--level: 38%"></span>
+          </div>
+          <div class="timeline">
+            <span>0s</span><span>2s</span><span>4s</span><span>6s</span><span>8s</span>
+          </div>
+          <div class="edit-window">
+            <span class="edit-handle"></span>
+            <span class="edit-label">target event</span>
+            <span class="edit-handle"></span>
+          </div>
+          <div class="signal-note">
+            <span class="signal-dot"></span>
+            <span>Instance-aware temporal control</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="overview" aria-labelledby="overview-title">
+        <div class="section-heading">
+          <p class="eyebrow">Research question</p>
+          <h2 id="overview-title">Can we edit <em>when</em> a sound happens?</h2>
+        </div>
+        <div class="overview-grid">
+          <p class="lead">
+            Audio editing systems commonly add, remove, or replace sounds.
+            TempoEdit studies a complementary problem: preserving a sound's
+            identity while changing its temporal behavior inside a complex
+            mixture.
+          </p>
+          <p>
+            The project investigates signals already present inside a
+            pretrained text-to-audio model. By guiding its internal attention
+            and generative trajectory, we aim to achieve flexible temporal
+            edits without retraining the model for every operation.
+          </p>
+        </div>
+
+        <div class="operation-grid" aria-label="Target temporal operations">
+          <article class="operation-card">
+            <span class="operation-index">01</span>
+            <div class="operation-icon move" aria-hidden="true">
+              <span></span><span></span>
+            </div>
+            <h3>Relocate</h3>
+            <p>Move a selected sound event to a different moment in the scene.</p>
+          </article>
+          <article class="operation-card">
+            <span class="operation-index">02</span>
+            <div class="operation-icon extend" aria-hidden="true">
+              <span></span><span></span><span></span>
+            </div>
+            <h3>Extend</h3>
+            <p>Lengthen the event while preserving its acoustic character.</p>
+          </article>
+          <article class="operation-card">
+            <span class="operation-index">03</span>
+            <div class="operation-icon shorten" aria-hidden="true">
+              <span></span><span></span>
+            </div>
+            <h3>Shorten</h3>
+            <p>Compress its active interval without disturbing the surrounding audio.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section approach-section" id="approach" aria-labelledby="approach-title">
+        <div class="approach-copy">
+          <p class="eyebrow">Proposed direction</p>
+          <h2 id="approach-title">One frozen model.<br>Multiple temporal edits.</h2>
+          <p>
+            Rather than training a separate editor for each operation, the
+            project treats temporal editing as inference-time guidance over a
+            pretrained text-to-audio flow model.
+          </p>
+        </div>
+        <ol class="process-list">
+          <li>
+            <span class="process-number">01</span>
+            <div><strong>Observe</strong><p>Locate the target event within a polyphonic mixture.</p></div>
+          </li>
+          <li>
+            <span class="process-number">02</span>
+            <div><strong>Guide</strong><p>Use the model's internal signals to define the desired timing.</p></div>
+          </li>
+          <li>
+            <span class="process-number">03</span>
+            <div><strong>Optimize</strong><p>Adapt the generative trajectory at inference time.</p></div>
+          </li>
+          <li>
+            <span class="process-number">04</span>
+            <div><strong>Compose</strong><p>Produce the edited scene while preserving non-target content.</p></div>
+          </li>
+        </ol>
+      </section>
+
+      <section class="section status-section" id="status" aria-labelledby="status-title">
+        <div>
+          <p class="eyebrow">Current status</p>
+          <h2 id="status-title">Ongoing Research Project</h2>
+        </div>
+        <div class="status-content">
+          <p>
+            The framework and evaluation are under active development.
+            Cross-backbone experiments and formal listening studies are in
+            progress; verified results and audio comparisons will be added as
+            they become available.
+          </p>
+          <div class="status-tags" aria-label="Current areas of work">
+            <span>Method development</span>
+            <span>Cross-model evaluation</span>
+            <span>Listening study design</span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2026 Chih-Yao Chen</p>
+      <p>TempoEdit · Research in progress</p>
+    </footer>
+  </body>
+</html>
